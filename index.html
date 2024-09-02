@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <title>Word Query</title>
+    <script src="js/jquery-3.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>
+    <div id="word_box">
+        <h3>WORD QUERY</h3>
+        <input placeholder="入力してください"/>
+        <button onclick="Search()">Search</button>
+    </div>
+
+    <h2>Query</h2>
+    <h4>mean</h4>
+    <h4>mean</h4>
+    <h4>mean</h4>
+    <h4>mean</h4>
+</body>
+
+<script type ="text/javascript">
+
+    function Search(){
+        $.ajax({
+        type:"get",
+        url:"https://dict-mobile.iciba.com/interface/index.php?c=word&m=getsuggest&nums=10&is_need_mean=1&word="+$("#word_input").val(),
+        async: true,
+        success: function(data)
+        {
+           var means = data.message[0].means;
+           var content = data.message[0].key;
+            $("#content").html(content);
+           for (var i =0; i<means.length; i++)
+           {
+            $("#mean" + i).html(means[i].part + means[i].means);
+           }
+        }
+    });
+    }
+
+    
+</script>
+
+
+</html>
